@@ -10,16 +10,24 @@ import jakarta.persistence.*;
 public class Localizacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idLocal")
     private int idLocal;
 
+    @Column(name = "nomeLocal")
     private String nomeLocal;
-    private String codLocal;
-    private String idStudentLocal;
-    private String longlistedLocal;
 
-    @ManyToOne
-    @JoinColumn(name = "idEsporte")
-    private Esporte esporte;
+    @Column(name = "cepLocal")
+    private String cepLocal;
 
-    private String idf;
+    @Column(name = "latitudeLocal")
+    private String latitudeLocal;
+
+    @Column(name = "longitudeLocal")
+    private String longitudeLocal;
+
+    @Column(name = "idEsporte") // FK
+    private String idEsporte;
+
+    @Column(name = "UF")
+    private String UF;
 }
