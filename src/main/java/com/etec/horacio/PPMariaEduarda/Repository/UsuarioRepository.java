@@ -6,36 +6,36 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-@Repository
 public class UsuarioRepository {
+    private final EntityManager em;
 
-    @PersistenceContext
-    public EntityManager entityManager;
-
-    @Transactional
-    public void salvar(Usuario usuario) {
-        entityManager.persist(usuario);
+    public UsuarioRepository(EntityManager em) {
+        this.em = em;
     }
 
-    public Usuario buscarPorId(int id) {
-        return entityManager.find(Usuario.class, id);
+    public Usuario save(Usuario usuario) {
+        if (usuario.getIdUsuario() == 0) {
+            em.persist(usuario);
+        } else {
+            usuario = em.merge(usuario);
+        }
+        return usuario;
     }
 
-    @Transactional
-    public void atualizar(Usuario usuario) {
-        entityManager.merge(usuario);
+    public Usuario findById(int id) {
+        return em.find(Usuario.class, id);
     }
 
-    @Transactional
-    public void excluir(int id) {
-        Usuario usuario = buscarPorId(id);
+    public List<Usuario> findAll() {
+        return em.createQuery("SELECT usuario FROM Usuario usuario", Usuario.class)
+                .getResultList();
+    }
+
+    public void delete(int id) {
+        Usuario usuario = findById(id);
         if (usuario != null) {
-            entityManager.remove(usuario);
+            em.remove(usuario);
         }
     }
 
-    public List<Usuario> listarTodos() {
-    }
 }
