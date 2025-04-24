@@ -11,28 +11,42 @@ import java.util.Date;
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idEvento")
     private int idEvento;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+    @Column(name = "idUsuario") // FK
+    private String idUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "idLocal")
-    private Localizacao local;
+    @Column(name = "idLocal") // FK
+    private String idLocal;
 
+    @Column(name = "nomeEvento")
     private String nomeEvento;
+
+    @Column(name = "dataEvento")
     private Date dataEvento;
 
-    @ManyToOne
-    @JoinColumn(name = "idAuthor")
-    private Usuario author;
+    @Column(name = "idAmigo") // FK
+    private String idAmigo;
 
-    private String partIdNumberEvento;
+    @Column(name = "participantesEvento")
+    private String participantesEvento;
+
+    @Column(name = "statusConfirmacao")
     private String statusConfirmacao;
+
+    @Column(name = "status")
     private int status;
-    private Date createAt;
-    private Date finishedAt;
-    private Date updateAt;
-    private String idAuto;
+
+    @Column(name = "create_at")
+    private Date create_at;
+
+    @Column(name = "finished_at")
+    private Date finished_at;
+
+    @Column(name = "update_at")
+    private Date update_at;
+
+    @Column(name = "id_autor")
+    private int id_autor;
 }
